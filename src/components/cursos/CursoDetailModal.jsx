@@ -6,8 +6,8 @@ import { useUsuarios } from "@/hooks/useUsuarios";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const AVATAR_COLORS = [
-  "#3b82f6","#8b5cf6","#10b981","#f97316",
-  "#f43f5e","#06b6d4","#f59e0b","#ec4899","#6366f1",
+  "#3b82f6", "#8b5cf6", "#10b981", "#f97316",
+  "#f43f5e", "#06b6d4", "#f59e0b", "#ec4899", "#6366f1",
 ];
 function avatarColor(id = 0) {
   return AVATAR_COLORS[Math.abs(id) % AVATAR_COLORS.length];
@@ -45,20 +45,20 @@ function AlumnoRow({ alumno, cursoId, onQuitar, isPendingQuitar }) {
 }
 
 // ── Buscador de alumnos con autocomplete ─────────────────────────────────────
-function AlumnoBuscador({ cursosAlumnosIds, cursoId, onAsignar, isPending, error }) {
-  const [query, setQuery]           = useState("");
-  const [open, setOpen]             = useState(false);
+function AlumnoBuscador({ cursosAlumnosIds, onAsignar, isPending, error }) {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState(-1);
   const inputRef = useRef(null);
-  const listRef  = useRef(null);
+  const listRef = useRef(null);
 
   const { data: todosAlumnos = [], isLoading: loadingAlumnos } = useUsuarios();
 
   // Filtrar: que coincida con el query y no esté ya asignado
   const sugerencias = query.trim().length === 0 ? [] : todosAlumnos.filter((a) => {
     const yaAsignado = cursosAlumnosIds.includes(a.id);
-    const coincide   = a.nombre.toLowerCase().includes(query.toLowerCase()) ||
-                       a.correo.toLowerCase().includes(query.toLowerCase());
+    const coincide = a.nombre.toLowerCase().includes(query.toLowerCase()) ||
+      a.correo.toLowerCase().includes(query.toLowerCase());
     return !yaAsignado && coincide;
   }).slice(0, 6);
 
@@ -182,12 +182,12 @@ function AlumnoBuscador({ cursosAlumnosIds, cursoId, onAsignar, isPending, error
 export default function CursoDetailModal({ open, onClose, curso }) {
   const { data: cursoDetalle, isLoading } = useCurso(curso?.id, { enabled: open && !!curso?.id });
   const asignar = useAsignarAlumno();
-  const quitar  = useQuitarAlumno();
+  const quitar = useQuitarAlumno();
 
-  const alumnos          = cursoDetalle?.alumnos ?? [];
-  const totalRelaciones  = cursoDetalle?.cursosalumnos?.length ?? curso?.cursosalumnos?.length ?? 0;
+  const alumnos = cursoDetalle?.alumnos ?? [];
+  const totalRelaciones = cursoDetalle?.cursosalumnos?.length ?? curso?.cursosalumnos?.length ?? 0;
   // IDs ya asignados para excluirlos del buscador
-  const asignadosIds     = cursoDetalle?.cursosalumnos?.map((ca) => ca.alumno_id) ?? [];
+  const asignadosIds = cursoDetalle?.cursosalumnos?.map((ca) => ca.alumno_id) ?? [];
 
   const handleAsignar = (alumno) => {
     asignar.mutate(

@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { to: "/",        label: "Inicio",   icon: Home     },
-  { to: "/cursos",  label: "Cursos",   icon: BookOpen },
-  { to: "/alumnos", label: "Alumnos",  icon: Users    },
+  { to: "/", label: "Inicio", icon: Home },
+  { to: "/cursos", label: "Cursos", icon: BookOpen },
+  { to: "/alumnos", label: "Alumnos", icon: Users },
 ];
 
 // ── Sidebar interior ────────────────────────────────────────────────────────
@@ -94,7 +94,7 @@ function SidebarContent({ pathname, collapsed, onClose }) {
 // ── Layout principal ─────────────────────────────────────────────────────────
 export default function MainLayout() {
   const { pathname } = useLocation();
-  const [collapsed, setCollapsed]   = useState(false); // desktop collapse
+  const [collapsed, setCollapsed] = useState(false); // desktop collapse
   const [mobileOpen, setMobileOpen] = useState(false); // mobile drawer
 
   // Cerrar drawer al cambiar de ruta en mobile
@@ -120,7 +120,7 @@ export default function MainLayout() {
       <aside
         className={cn(sidebarClasses, "hidden lg:flex", collapsed ? "w-[72px]" : "w-64")}
       >
-        <SidebarContent pathname={pathname} collapsed={collapsed} onClose={() => {}} />
+        <SidebarContent pathname={pathname} collapsed={collapsed} onClose={() => { }} />
 
         {/* Botón colapsar */}
         <button
@@ -135,7 +135,7 @@ export default function MainLayout() {
         >
           {collapsed
             ? <ChevronRight className="h-3.5 w-3.5" />
-            : <ChevronLeft  className="h-3.5 w-3.5" />}
+            : <ChevronLeft className="h-3.5 w-3.5" />}
         </button>
       </aside>
 

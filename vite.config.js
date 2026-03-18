@@ -18,13 +18,13 @@ export default defineConfig({
     proxy: {
       // /api/cursos/foo  →  http://localhost:8002/foo  (context path '/')
       "/api/cursos": {
-        target: "http://10.0.3.232:8002",
+        target: "http://localhost:8002",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/cursos/, ""),
       },
       // /api/alumnos/foo  →  http://localhost:8001/foo  (context path '/')
       "/api/alumnos": {
-        target: "http://10.0.2.180:8001",
+        target: "http://localhost:8001",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/alumnos/, ""),
       },

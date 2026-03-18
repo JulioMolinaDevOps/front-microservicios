@@ -23,7 +23,7 @@ export const cursosService = {
    * GET / → lista todos los cursos (sin alumnos)
    * @returns {Promise<Cursos[]>}
    */
-  getAll: () => cursosClient.get("/").then((res) => res.data),
+  getAll: () => cursosClient.get("/").then(res => res.data),
 
   /**
    * GET /{id} → obtiene el curso con sus alumnos populados

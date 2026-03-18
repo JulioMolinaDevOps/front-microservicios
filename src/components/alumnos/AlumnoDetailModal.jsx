@@ -2,9 +2,9 @@ import { Mail, Hash, KeyRound, User } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 
 const AVATAR_COLORS = [
-  "bg-blue-500",   "bg-violet-500", "bg-emerald-500",
-  "bg-orange-500", "bg-rose-500",   "bg-cyan-500",
-  "bg-amber-500",  "bg-pink-500",   "bg-indigo-500",
+  "bg-blue-500", "bg-violet-500", "bg-emerald-500",
+  "bg-orange-500", "bg-rose-500", "bg-cyan-500",
+  "bg-amber-500", "bg-pink-500", "bg-indigo-500",
 ];
 
 function getAvatarColor(name = "") {
@@ -24,6 +24,7 @@ function DetailRow({ icon: Icon, label, value }) {
         <Icon className="h-4 w-4 text-muted-foreground" />
       </div>
       <div className="min-w-0">
+
         <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wide">
           {label}
         </p>
@@ -41,7 +42,7 @@ export default function AlumnoDetailModal({ open, onClose, alumno }) {
   if (!alumno) return null;
 
   const avatarColor = getAvatarColor(alumno.nombre);
-  const initials    = getInitials(alumno.nombre);
+  const initials = getInitials(alumno.nombre);
 
   return (
     <Modal open={open} onClose={onClose} title="Detalle del alumno" size="sm">
@@ -61,8 +62,8 @@ export default function AlumnoDetailModal({ open, onClose, alumno }) {
         </div>
 
         <div className="divide-y rounded-xl border px-4">
-          <DetailRow icon={User}     label="Nombre"   value={alumno.nombre} />
-          <DetailRow icon={Mail}     label="Correo"   value={alumno.correo} />
+          <DetailRow icon={User} label="Nombre" value={alumno.nombre} />
+          <DetailRow icon={Mail} label="Correo" value={alumno.correo} />
           <DetailRow icon={KeyRound} label="Contraseña" value={alumno.contrasena ?? "—"} />
         </div>
       </div>

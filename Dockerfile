@@ -1,29 +1,28 @@
-# ─────────────────────────────────────────────
-# STAGE 1 — Build
-# ─────────────────────────────────────────────
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 RUN npm run build
 
+FROM nginx:alpine
 
-FROM nginx:1.27-alpine AS production
-
-
+# Eliminar config default
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/conf.d/app.conf
+# Copiar como TEMPLATE para que envsubst reemplace las variables
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-
+# Copiar build de Vite (dist, no build)
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# envsubst reemplaza las variables al arrancar
+CMD ["/bin/sh", "-c", "envsubst '${CURSOS_URL} ${USUARIOS_URL}' \
+    < /etc/nginx/templates/default.conf.template \
+    > /etc/nginx/conf.d/default.conf \
+    && nginx -g 'daemon off;'"]

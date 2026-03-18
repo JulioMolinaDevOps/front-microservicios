@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useCursos } from "@/hooks/useCursos";
 import { BookOpen, Users, Hash, Plus, Pencil, Trash2 } from "lucide-react";
-import CursoFormModal           from "@/components/cursos/CursoFormModal";
-import CursoDetailModal         from "@/components/cursos/CursoDetailModal";
+import CursoFormModal from "@/components/cursos/CursoFormModal";
+import CursoDetailModal from "@/components/cursos/CursoDetailModal";
 import ConfirmDeleteCursoDialog from "@/components/cursos/ConfirmDeleteCursoDialog";
 
 // Paleta de colores por índice para las cards
@@ -115,13 +115,14 @@ export default function CursosPage() {
   const { data: cursos, isLoading, isError, error } = useCursos();
 
   const [selected, setSelected] = useState(null);
-  const [modal, setModal]       = useState(null); // "detail" | "form" | "delete"
+  const [modal, setModal] = useState(null); // "detail" | "form" | "delete"
 
   const openDetail = (curso) => { setSelected(curso); setModal("detail"); };
-  const openEdit   = (curso) => { setSelected(curso); setModal("form"); };
+  const openEdit = (curso) => { setSelected(curso); setModal("form"); };
   const openDelete = (curso) => { setSelected(curso); setModal("delete"); };
-  const openCreate = ()      => { setSelected(null);  setModal("form"); };
-  const closeModal = ()      => { setModal(null); };
+  const openCreate = () => { setSelected(null); setModal("form"); };
+  const closeModal = () => { setModal(null); };
+  console.log("cursos:", cursos);
 
   return (
     <div className="space-y-6">
@@ -159,15 +160,15 @@ export default function CursosPage() {
         {isLoading
           ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
           : cursos?.map((curso, i) => (
-              <CursoCard
-                key={curso.id}
-                curso={curso}
-                index={i}
-                onView={openDetail}
-                onEdit={openEdit}
-                onDelete={openDelete}
-              />
-            ))}
+            <CursoCard
+              key={curso.id}
+              curso={curso}
+              index={i}
+              onView={openDetail}
+              onEdit={openEdit}
+              onDelete={openDelete}
+            />
+          ))}
       </div>
 
       {/* Estado vacío */}
